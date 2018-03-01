@@ -1,0 +1,465 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.guigu.instructional.notes.mapper.AttNotesMapper" >
+  <resultMap id="BaseResultMap" type="com.guigu.instructional.po.AttNotes" >
+    <id column="NoteID" property="noteid" jdbcType="INTEGER" />
+    <result column="DepartmentID" property="departmentid" jdbcType="INTEGER" />
+    <result column="EmployeeID" property="employeeid" jdbcType="INTEGER" />
+    <result column="NoteType" property="notetype" jdbcType="INTEGER" />
+    <result column="AdminID" property="adminid" jdbcType="INTEGER" />
+    <result column="OperatorID" property="operatorid" jdbcType="INTEGER" />
+    <result column="EmployeesIDs" property="employeesids" jdbcType="VARCHAR" />
+    <result column="Cause" property="cause" jdbcType="VARCHAR" />
+    <result column="FillInTime" property="fillintime" jdbcType="TIMESTAMP" />
+    <result column="DirectorSign" property="directorsign" jdbcType="VARCHAR" />
+    <result column="AdministrationSign" property="administrationsign" jdbcType="VARCHAR" />
+    <result column="PresidentSign" property="presidentsign" jdbcType="VARCHAR" />
+    <result column="StartDate" property="startdate" jdbcType="TIMESTAMP" />
+    <result column="StartTime" property="starttime" jdbcType="VARCHAR" />
+    <result column="EndDate" property="enddate" jdbcType="TIMESTAMP" />
+    <result column="EndTime" property="endtime" jdbcType="VARCHAR" />
+    <result column="OvertimesIDs" property="overtimesids" jdbcType="VARCHAR" />
+    <result column="Vehicle" property="vehicle" jdbcType="VARCHAR" />
+    <result column="ProjectName" property="projectname" jdbcType="VARCHAR" />
+    <result column="NoteMemo" property="notememo" jdbcType="VARCHAR" />
+    <result column="IsVerify" property="isverify" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    NoteID, DepartmentID, EmployeeID, NoteType, AdminID, OperatorID, EmployeesIDs, Cause, 
+    FillInTime, DirectorSign, AdministrationSign, PresidentSign, StartDate, StartTime, 
+    EndDate, EndTime, OvertimesIDs, Vehicle, ProjectName, NoteMemo, IsVerify
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.guigu.instructional.po.AttNotesExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from att_notes
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from att_notes
+    where NoteID = #{noteid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from att_notes
+    where NoteID = #{noteid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.guigu.instructional.po.AttNotesExample" >
+    delete from att_notes
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.guigu.instructional.po.AttNotes" >
+    insert into att_notes (NoteID, DepartmentID, EmployeeID, 
+      NoteType, AdminID, OperatorID, 
+      EmployeesIDs, Cause, FillInTime, 
+      DirectorSign, AdministrationSign, PresidentSign, 
+      StartDate, StartTime, EndDate, 
+      EndTime, OvertimesIDs, Vehicle, 
+      ProjectName, NoteMemo, IsVerify
+      )
+    values (#{noteid,jdbcType=INTEGER}, #{departmentid,jdbcType=INTEGER}, #{employeeid,jdbcType=INTEGER}, 
+      #{notetype,jdbcType=INTEGER}, #{adminid,jdbcType=INTEGER}, #{operatorid,jdbcType=INTEGER}, 
+      #{employeesids,jdbcType=VARCHAR}, #{cause,jdbcType=VARCHAR}, #{fillintime,jdbcType=TIMESTAMP}, 
+      #{directorsign,jdbcType=VARCHAR}, #{administrationsign,jdbcType=VARCHAR}, #{presidentsign,jdbcType=VARCHAR}, 
+      #{startdate,jdbcType=TIMESTAMP}, #{starttime,jdbcType=VARCHAR}, #{enddate,jdbcType=TIMESTAMP}, 
+      #{endtime,jdbcType=VARCHAR}, #{overtimesids,jdbcType=VARCHAR}, #{vehicle,jdbcType=VARCHAR}, 
+      #{projectname,jdbcType=VARCHAR}, #{notememo,jdbcType=VARCHAR}, #{isverify,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.guigu.instructional.po.AttNotes" >
+    insert into att_notes
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="noteid != null" >
+        NoteID,
+      </if>
+      <if test="departmentid != null" >
+        DepartmentID,
+      </if>
+      <if test="employeeid != null" >
+        EmployeeID,
+      </if>
+      <if test="notetype != null" >
+        NoteType,
+      </if>
+      <if test="adminid != null" >
+        AdminID,
+      </if>
+      <if test="operatorid != null" >
+        OperatorID,
+      </if>
+      <if test="employeesids != null" >
+        EmployeesIDs,
+      </if>
+      <if test="cause != null" >
+        Cause,
+      </if>
+      <if test="fillintime != null" >
+        FillInTime,
+      </if>
+      <if test="directorsign != null" >
+        DirectorSign,
+      </if>
+      <if test="administrationsign != null" >
+        AdministrationSign,
+      </if>
+      <if test="presidentsign != null" >
+        PresidentSign,
+      </if>
+      <if test="startdate != null" >
+        StartDate,
+      </if>
+      <if test="starttime != null" >
+        StartTime,
+      </if>
+      <if test="enddate != null" >
+        EndDate,
+      </if>
+      <if test="endtime != null" >
+        EndTime,
+      </if>
+      <if test="overtimesids != null" >
+        OvertimesIDs,
+      </if>
+      <if test="vehicle != null" >
+        Vehicle,
+      </if>
+      <if test="projectname != null" >
+        ProjectName,
+      </if>
+      <if test="notememo != null" >
+        NoteMemo,
+      </if>
+      <if test="isverify != null" >
+        IsVerify,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="noteid != null" >
+        #{noteid,jdbcType=INTEGER},
+      </if>
+      <if test="departmentid != null" >
+        #{departmentid,jdbcType=INTEGER},
+      </if>
+      <if test="employeeid != null" >
+        #{employeeid,jdbcType=INTEGER},
+      </if>
+      <if test="notetype != null" >
+        #{notetype,jdbcType=INTEGER},
+      </if>
+      <if test="adminid != null" >
+        #{adminid,jdbcType=INTEGER},
+      </if>
+      <if test="operatorid != null" >
+        #{operatorid,jdbcType=INTEGER},
+      </if>
+      <if test="employeesids != null" >
+        #{employeesids,jdbcType=VARCHAR},
+      </if>
+      <if test="cause != null" >
+        #{cause,jdbcType=VARCHAR},
+      </if>
+      <if test="fillintime != null" >
+        #{fillintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="directorsign != null" >
+        #{directorsign,jdbcType=VARCHAR},
+      </if>
+      <if test="administrationsign != null" >
+        #{administrationsign,jdbcType=VARCHAR},
+      </if>
+      <if test="presidentsign != null" >
+        #{presidentsign,jdbcType=VARCHAR},
+      </if>
+      <if test="startdate != null" >
+        #{startdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="starttime != null" >
+        #{starttime,jdbcType=VARCHAR},
+      </if>
+      <if test="enddate != null" >
+        #{enddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endtime != null" >
+        #{endtime,jdbcType=VARCHAR},
+      </if>
+      <if test="overtimesids != null" >
+        #{overtimesids,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicle != null" >
+        #{vehicle,jdbcType=VARCHAR},
+      </if>
+      <if test="projectname != null" >
+        #{projectname,jdbcType=VARCHAR},
+      </if>
+      <if test="notememo != null" >
+        #{notememo,jdbcType=VARCHAR},
+      </if>
+      <if test="isverify != null" >
+        #{isverify,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.guigu.instructional.po.AttNotesExample" resultType="java.lang.Integer" >
+    select count(*) from att_notes
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update att_notes
+    <set >
+      <if test="record.noteid != null" >
+        NoteID = #{record.noteid,jdbcType=INTEGER},
+      </if>
+      <if test="record.departmentid != null" >
+        DepartmentID = #{record.departmentid,jdbcType=INTEGER},
+      </if>
+      <if test="record.employeeid != null" >
+        EmployeeID = #{record.employeeid,jdbcType=INTEGER},
+      </if>
+      <if test="record.notetype != null" >
+        NoteType = #{record.notetype,jdbcType=INTEGER},
+      </if>
+      <if test="record.adminid != null" >
+        AdminID = #{record.adminid,jdbcType=INTEGER},
+      </if>
+      <if test="record.operatorid != null" >
+        OperatorID = #{record.operatorid,jdbcType=INTEGER},
+      </if>
+      <if test="record.employeesids != null" >
+        EmployeesIDs = #{record.employeesids,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cause != null" >
+        Cause = #{record.cause,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fillintime != null" >
+        FillInTime = #{record.fillintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.directorsign != null" >
+        DirectorSign = #{record.directorsign,jdbcType=VARCHAR},
+      </if>
+      <if test="record.administrationsign != null" >
+        AdministrationSign = #{record.administrationsign,jdbcType=VARCHAR},
+      </if>
+      <if test="record.presidentsign != null" >
+        PresidentSign = #{record.presidentsign,jdbcType=VARCHAR},
+      </if>
+      <if test="record.startdate != null" >
+        StartDate = #{record.startdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.starttime != null" >
+        StartTime = #{record.starttime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.enddate != null" >
+        EndDate = #{record.enddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.endtime != null" >
+        EndTime = #{record.endtime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.overtimesids != null" >
+        OvertimesIDs = #{record.overtimesids,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vehicle != null" >
+        Vehicle = #{record.vehicle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.projectname != null" >
+        ProjectName = #{record.projectname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.notememo != null" >
+        NoteMemo = #{record.notememo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isverify != null" >
+        IsVerify = #{record.isverify,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update att_notes
+    set NoteID = #{record.noteid,jdbcType=INTEGER},
+      DepartmentID = #{record.departmentid,jdbcType=INTEGER},
+      EmployeeID = #{record.employeeid,jdbcType=INTEGER},
+      NoteType = #{record.notetype,jdbcType=INTEGER},
+      AdminID = #{record.adminid,jdbcType=INTEGER},
+      OperatorID = #{record.operatorid,jdbcType=INTEGER},
+      EmployeesIDs = #{record.employeesids,jdbcType=VARCHAR},
+      Cause = #{record.cause,jdbcType=VARCHAR},
+      FillInTime = #{record.fillintime,jdbcType=TIMESTAMP},
+      DirectorSign = #{record.directorsign,jdbcType=VARCHAR},
+      AdministrationSign = #{record.administrationsign,jdbcType=VARCHAR},
+      PresidentSign = #{record.presidentsign,jdbcType=VARCHAR},
+      StartDate = #{record.startdate,jdbcType=TIMESTAMP},
+      StartTime = #{record.starttime,jdbcType=VARCHAR},
+      EndDate = #{record.enddate,jdbcType=TIMESTAMP},
+      EndTime = #{record.endtime,jdbcType=VARCHAR},
+      OvertimesIDs = #{record.overtimesids,jdbcType=VARCHAR},
+      Vehicle = #{record.vehicle,jdbcType=VARCHAR},
+      ProjectName = #{record.projectname,jdbcType=VARCHAR},
+      NoteMemo = #{record.notememo,jdbcType=VARCHAR},
+      IsVerify = #{record.isverify,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.guigu.instructional.po.AttNotes" >
+    update att_notes
+    <set >
+      <if test="departmentid != null" >
+        DepartmentID = #{departmentid,jdbcType=INTEGER},
+      </if>
+      <if test="employeeid != null" >
+        EmployeeID = #{employeeid,jdbcType=INTEGER},
+      </if>
+      <if test="notetype != null" >
+        NoteType = #{notetype,jdbcType=INTEGER},
+      </if>
+      <if test="adminid != null" >
+        AdminID = #{adminid,jdbcType=INTEGER},
+      </if>
+      <if test="operatorid != null" >
+        OperatorID = #{operatorid,jdbcType=INTEGER},
+      </if>
+      <if test="employeesids != null" >
+        EmployeesIDs = #{employeesids,jdbcType=VARCHAR},
+      </if>
+      <if test="cause != null" >
+        Cause = #{cause,jdbcType=VARCHAR},
+      </if>
+      <if test="fillintime != null" >
+        FillInTime = #{fillintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="directorsign != null" >
+        DirectorSign = #{directorsign,jdbcType=VARCHAR},
+      </if>
+      <if test="administrationsign != null" >
+        AdministrationSign = #{administrationsign,jdbcType=VARCHAR},
+      </if>
+      <if test="presidentsign != null" >
+        PresidentSign = #{presidentsign,jdbcType=VARCHAR},
+      </if>
+      <if test="startdate != null" >
+        StartDate = #{startdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="starttime != null" >
+        StartTime = #{starttime,jdbcType=VARCHAR},
+      </if>
+      <if test="enddate != null" >
+        EndDate = #{enddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endtime != null" >
+        EndTime = #{endtime,jdbcType=VARCHAR},
+      </if>
+      <if test="overtimesids != null" >
+        OvertimesIDs = #{overtimesids,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicle != null" >
+        Vehicle = #{vehicle,jdbcType=VARCHAR},
+      </if>
+      <if test="projectname != null" >
+        ProjectName = #{projectname,jdbcType=VARCHAR},
+      </if>
+      <if test="notememo != null" >
+        NoteMemo = #{notememo,jdbcType=VARCHAR},
+      </if>
+      <if test="isverify != null" >
+        IsVerify = #{isverify,jdbcType=INTEGER},
+      </if>
+    </set>
+    where NoteID = #{noteid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.guigu.instructional.po.AttNotes" >
+    update att_notes
+    set DepartmentID = #{departmentid,jdbcType=INTEGER},
+      EmployeeID = #{employeeid,jdbcType=INTEGER},
+      NoteType = #{notetype,jdbcType=INTEGER},
+      AdminID = #{adminid,jdbcType=INTEGER},
+      OperatorID = #{operatorid,jdbcType=INTEGER},
+      EmployeesIDs = #{employeesids,jdbcType=VARCHAR},
+      Cause = #{cause,jdbcType=VARCHAR},
+      FillInTime = #{fillintime,jdbcType=TIMESTAMP},
+      DirectorSign = #{directorsign,jdbcType=VARCHAR},
+      AdministrationSign = #{administrationsign,jdbcType=VARCHAR},
+      PresidentSign = #{presidentsign,jdbcType=VARCHAR},
+      StartDate = #{startdate,jdbcType=TIMESTAMP},
+      StartTime = #{starttime,jdbcType=VARCHAR},
+      EndDate = #{enddate,jdbcType=TIMESTAMP},
+      EndTime = #{endtime,jdbcType=VARCHAR},
+      OvertimesIDs = #{overtimesids,jdbcType=VARCHAR},
+      Vehicle = #{vehicle,jdbcType=VARCHAR},
+      ProjectName = #{projectname,jdbcType=VARCHAR},
+      NoteMemo = #{notememo,jdbcType=VARCHAR},
+      IsVerify = #{isverify,jdbcType=INTEGER}
+    where NoteID = #{noteid,jdbcType=INTEGER}
+  </update>
+</mapper>
